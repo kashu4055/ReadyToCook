@@ -3,14 +3,17 @@
   Filename: testng.xml
 -->
 <!DOCTYPE suite SYSTEM "http://beust.com/testng/testng-1.0.dtd" >
-<suite name="GeoTest Smoke">
+<suite name="Examples suite">
 
-
-	<!--LOGIN TESTS-->
-	<test name="Suite1">
+	<test name="selenium">
 		<classes>
-			<class name="test.suite1.TestClass1" />
+			<class name="test.example.selenium.TestClass" />
 		</classes>
 	</test>
-
+	<test name="wslite">
+		<classes>
+			<class name="test.example.wslite.TestREST" />
+			<class name="test.example.wslite.TestSOAP" />
+		</classes>
+	</test>
 </suite>
