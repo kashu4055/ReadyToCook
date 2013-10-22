@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Filename: testng.xml
+-->
+<!DOCTYPE suite SYSTEM "http://beust.com/testng/testng-1.0.dtd" >
+<suite name="GeoTest Smoke">
+
+
+	<!--LOGIN TESTS-->
+	<test name="Suite1">
+		<classes>
+			<class name="test.suite1.TestClass1" />
+		</classes>
+	</test>
+
+</suite>

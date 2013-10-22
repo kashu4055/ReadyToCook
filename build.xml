@@ -1,0 +1,83 @@
+<project name="your.project" default="build" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
+	<description>
+        Build and run your project tests
+    </description>
+	
+
+	<!-- ================================= 
+          properties        
+         ================================= -->
+	<property name="base.dir" value="${basedir}" />
+	<property name="src.dir" value="src" />
+	<property name="build.dir" value="build" />
+	<property name="lib.dir" value="lib" />
+	<property name="testresults.dir" value="testresults" />
+  	
+	<!-- ================================= 
+		  classpath           
+	     ================================= -->
+	<path id="lib.path.id">
+		<fileset dir="${lib.dir}" />
+	</path>
+	<path id="run.path.id">
+		<path refid="lib.path.id" />
+		<path location="${build.dir}" />
+	</path>
+	
+	<!-- ================================= 
+          target: resolve              
+         ================================= -->
+	<target name="resolve" description="--> retrieve dependencies with ivy" depends="init">
+		<ivy:retrieve />
+		<ivy:cachepath pathid="ivy.path" conf="default" />
+	</target>
+	
+	<!-- ================================= 
+          target: clean 
+         ================================= -->
+	<target name="clean" description="clean up">
+		<delete dir="${build.dir}" />
+		<delete dir="${testresults.dir}" />
+		<delete dir="${lib.dir}" />
+	</target>
+
+	<!-- ================================= 
+          target: init              
+         ================================= -->
+	<target name="init">
+		<tstamp />
+		<delete dir="${build.dir}" />
+		<delete dir="${testresults.dir}" />
+		<mkdir dir="${build.dir}" />
+	</target>
+			
+	<!-- ================================= 
+          target: build tests and utils         
+         ================================= -->
+	<target name="build" description="build test classes and utils" depends="resolve">
+		<taskdef name="groovyc" classname="org.codehaus.groovy.ant.Groovyc" classpathref="lib.path.id">
+		</taskdef>
+		<copy todir="${build.dir}">
+			<fileset dir="${src.dir}" includes="*.properties" />
+		</copy>
+		<copy todir="${build.dir}/test">
+			<fileset dir="${src.dir}/test" includes="*.xml" />
+		</copy>
+		<groovyc srcdir="${src.dir}" destdir="${build.dir}">
+			<javac source="1.7" target="1.7" debug="on" classpathref="lib.path.id" />
+		</groovyc>
+	</target>
+
+	<!-- ================================= 
+          target: runtests   
+         ================================= -->
+	<target name="runtests" depends="build">
+		<mkdir dir="${testresults.dir}" />
+		<!-- Create the output directory. -->
+		<taskdef name="testng" classname="org.testng.TestNGAntTask" classpathref="run.path.id" />
+		<testng classpathref="run.path.id" outputdir="${testresults.dir}" testnames="${testnames}">
+			<xmlfileset dir="${build.dir}/test" includes="testng.xml" />
+		</testng>
+	</target>
+
+</project>

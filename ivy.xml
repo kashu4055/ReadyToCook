@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+    <info
+        organisation="your.organization"
+        module="your.module"
+        status="integration">
+	</info>
+	 <dependencies>
+		 <dependency org="org.seleniumhq.selenium" name="selenium-java" rev="2.37.1" transitive="false"/>
+		 <dependency org="org.codehaus.groovy" name="groovy-all" rev="2.1.1" transitive="false" />       
+		 <dependency org="com.github.groovy-wslite" name="groovy-wslite" rev="0.7.2" transitive="false" />		
+		 <dependency org="com.beust" name="jcommander" rev="1.27" transitive="false"><artifact name="jcommander" ext="jar"/></dependency>
+         <dependency org="log4j" name="log4j" rev="1.2.13" transitive="false"><artifact name="log4j" ext="jar"/></dependency>
+		 <dependency org="org.testng" name="testng" rev="6.8"  transitive="false"> <artifact name="testng" ext="jar"/></dependency>
+	 </dependencies>
+</ivy-module>
